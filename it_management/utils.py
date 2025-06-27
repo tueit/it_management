@@ -288,7 +288,13 @@ def for_every_customer_create_default_landscape():
 				print("Inserted " + str(doc.title))
 			except Exception as ex:
 				#Check  duplicate (TODO is probably unnessecary)
-				dups = frappe.db.get_call('Customer',filters={'customer_name':c["customer_name"]}, fields=['name'], page_length=10000,as_list=False)
+				dups = frappe.db.get_all(
+					'Customer',
+					filters={'customer_name': c["customer_name"]},
+					fields=['name'],
+					page_length=10000,
+					as_list=False,
+				)
 				print("Exception Duplicate Customer: " + str(dups))
 				if(len(dups) > 1):
 					pass
